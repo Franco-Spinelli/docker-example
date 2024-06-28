@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  crud_app:
+    container_name: crud_app
+    build: .
+    ports:
+      - 8080:8080
+    env_file:
+      - src/main/resources/.env
+
+  crud_db:
+    container_name: crud_db
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${PASSWORD_DATABASE}
+      MYSQL_DATABASE: crud
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
